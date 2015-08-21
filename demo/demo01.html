@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../mustache.min.js"></script>
+    <script>
+        var user={
+            name:"mingjie",
+            age:"18",
+            desc:"<h1>my name is  mingjie </h1>",
+            sayHello:function(){
+                return "hello";
+            },
+            isGirl:false,
+            isBoy:true,
+            favs:['羽毛球','lol','游水','跑步','骑行'],
+            firends:[{
+                name:'xiaoming',
+                age:19
+            },
+                {
+                    name:'xiaohong',
+                    age:20
+                },
+                {
+                    name:'xiaobai',
+                    age:21
+        }
+            ],
+            girls:[]
+        }
+    </script>
+    <script id="t1" type="x-tmpl-mustache">
+         不支持表达式，如果遇到复杂的运算或复杂的逻辑，使用函数来代替if else等逻辑
+        <!--  变量引用 -->
+        *默认情况会对内容进行html实体字符的转换，使用{{{ }}}三个大括号可以避免转义
+        *在{{=<% %>=}}和<%={{ }}=%> 中间的内容不会被模版引擎解析，原样返回
+        *注释{{! }}
+         <a>Hello {{name}}!</a>
+         <p>desc {{desc}}</p>
+          <p>desc {{{desc}}}</p>
+          {{=<% %>=}}
+          sasafsdfsasasdae2weqw sdsaa {{}}P{}}}
+          <%={{ }}=%>
+           <h1>Today{{! ignore me }}.</h1>
+
+         <!-- 条件判断 -->
+          {{#isGirl}}
+
+             is girl
+          {{/isGirl}}
+                {{#isBoy}}
+
+             is boy
+          {{/isBoy}}
+
+          <!-- 函数调用 -->
+          * 只能调用变量内部的函数,可使用外层对象包装一下即可以调用外部函数 {data:[],context:{}}
+          {{sayHello}}
+          {{>func}}
+
+          <!--循环输出-->
+          * 如果是简单数据类型，可以使用'.'当前变量
+
+          {{#firends}}
+            name :{{ .name}}  age:{{age}}
+          {{/firends}}
+           {{#favs}}
+            {{.}}
+          {{/favs}}
+
+
+          {{^girls}}No girlfirends :({{/girls}}
+
+
+
+
+
+
+
+    </script>
+    <script>
+        //变量引用
+
+        var output = Mustache.render("{{name}} {{sayHello}}",user);
+
+        console.log(output);
+        (function t1(){
+          var template=document.getElementById('t1').innerHTML;
+            Mustache.parse(template);
+            output=Mustache.render(template,user);
+            console.log(output);
+        })();
+
+        //函数调用
+
+        var output = Mustache.render("{{name}} {{sayHello}}",user,{func1:function(){return "func outline "}});
+        console.log(output);
+
+        //循环
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+
+
+
+
+</html>
